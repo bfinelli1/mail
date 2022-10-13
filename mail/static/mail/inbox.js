@@ -69,6 +69,30 @@ function load_email(myemail) {
     unread(myemail);
   }
 
+  document.getElementById('reply').onclick = function() {
+    reply(myemail);
+  }
+
+}
+
+function reply(myemail) {
+    // Show compose view and hide other views
+    document.querySelector('#emails-view').style.display = 'none';
+    document.querySelector('#one-email-view').style.display = 'none';
+    document.querySelector('#compose-view').style.display = 'block';
+  
+    // Clear out composition fields
+    document.querySelector('#compose-recipients').value = myemail.sender;
+
+    if (myemail.subject.substring(0, 3).toLowerCase() === "re:") {
+      document.querySelector('#compose-subject').value = myemail.subject;
+    }
+    else {
+      document.querySelector('#compose-subject').value = "Re: " + myemail.subject;
+    }
+
+    //On Jan 1 2020, 12:00 AM foo@example.com wrote:
+    document.querySelector('#compose-body').value = "\n\n\nOn " + myemail.timestamp + " " + myemail.sender + "wrote: \n" + myemail.body;
 }
 
 function unread(myemail) {
@@ -79,6 +103,7 @@ function unread(myemail) {
       read: false
     })
   })
+  .then( () => load_mailbox('inbox'))
 }
 
 function archive(myemail) {
@@ -89,6 +114,7 @@ function archive(myemail) {
         archived: true
       })
     })
+    .then( () => load_mailbox('inbox'))
   }
   else {
     fetch(`/emails/${myemail.id}`, {
@@ -97,8 +123,8 @@ function archive(myemail) {
         archived: false
       })
     })
+    .then( () => load_mailbox('inbox'))
   }
-  load_mailbox('inbox');
 }
 
 
