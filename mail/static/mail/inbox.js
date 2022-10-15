@@ -48,14 +48,14 @@ function load_email(myemail) {
   document.querySelector('#emails-view').style.display = 'none';
   document.querySelector('#one-email-view').style.display = 'block';
   document.querySelector('#compose-view').style.display = 'none';
-  let body = "sender: " + myemail.sender
-  body += "<br></br>"
-  body += "recipients: " + myemail.recipients
-  body += "<br></br>"
-  body += "subject: " + myemail.subject
-  body += "<br></br>"
-  body += myemail.timestamp
-  body += "<br></br>"
+  let body = "<span style=\"font-weight: bold;\">From: </span>" + myemail.sender
+  body += "<br>"
+  body += "<span style=\"font-weight: bold;\">To: </span>" + myemail.recipients
+  body += "<br>"
+  body += "<span style=\"font-weight: bold;\">Subject: </span>" + myemail.subject
+  body += "<br>"
+  body += "<span style=\"font-weight: bold;\">Timestamp: </span>" + myemail.timestamp
+  body += "<hr><br>"
   body += myemail.body
 
   document.querySelector('#one-email-box').innerHTML = body;
@@ -163,13 +163,15 @@ function load_mailbox(mailbox) {
         console.log(emails);
         emails.forEach(myemail => {
           const li = document.createElement('li');
-          li.innerHTML = myemail.sender + " " + myemail.subject + " " + myemail.timestamp;
+          li.innerHTML = "<span style=\"font-weight: bold;\">&nbsp;" + myemail.sender + "</span>" + "&nbsp;&nbsp;&nbsp;";
+          li.innerHTML += myemail.subject + " <span style=\"float:right;color:grey\">" + myemail.timestamp + "</span>";
+
           li.addEventListener('click', function () {
             console.log('This element has been clicked!')
             load_email(myemail)
           });
           if (myemail.read === true)
-            li.style = "background-color:grey"
+            li.style = "background-color:rgb(216, 215, 215)"
           else {
             li.style = ""
           }
@@ -189,7 +191,8 @@ function load_mailbox(mailbox) {
         console.log(emails);
         emails.forEach(myemail => {
           const li = document.createElement('li');
-          li.innerHTML = myemail.sender + " " + myemail.subject + " " + myemail.timestamp;
+          li.innerHTML = "<span style=\"font-weight: bold;\">&nbsp;" + myemail.sender + "</span>" + "&nbsp;&nbsp;&nbsp;";
+          li.innerHTML += myemail.subject + " <span style=\"float:right;color:grey\">" + myemail.timestamp + "</span>";
           li.addEventListener('click', function () {
             console.log('This element has been clicked!')
             load_email(myemail)
@@ -209,7 +212,8 @@ function load_mailbox(mailbox) {
         console.log(emails);
         emails.forEach(myemail => {
           const li = document.createElement('li');
-          li.innerHTML = myemail.sender + " " + myemail.subject + " " + myemail.timestamp;
+          li.innerHTML = "<span style=\"font-weight: bold;\">&nbsp;" + myemail.sender + "</span>" + "&nbsp;&nbsp;&nbsp;";
+          li.innerHTML += myemail.subject + " <span style=\"float:right;color:grey\">" + myemail.timestamp + "</span>";
           li.addEventListener('click', function () {
             console.log('This element has been clicked!')
             load_email(myemail)
